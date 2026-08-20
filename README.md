@@ -1,88 +1,87 @@
-# Brushify
+# Brushify 🪥
 
-A D2C e-commerce site for premium electric toothbrushes — product showcase, cart, checkout, and order history.
-
-## Tech Stack
-
-**Client**
-- React 19 + TypeScript
-- Vite 7
-- Tailwind CSS v4
-- shadcn/ui (Radix UI primitives)
-- TanStack React Query + tRPC (client) — typed API calls
-- React Hook Form + Zod-style resolvers (`@hookform/resolvers`)
-
-**Server**
-- Express
-- tRPC (server)
-- Drizzle ORM (+ `drizzle-kit` for migrations)
-- AWS S3 (`@aws-sdk/client-s3`, presigned URLs) — asset storage
+A premium marketing and e-commerce storefront for "Brushify" — a smart electric toothbrush brand. Built as a fast, animated, single-page React app with a full product catalog, cart, and checkout experience.
 
 ## Features
 
-- **Hero section** — large single-brush carousel (auto-advancing with crossfade + progress dots)
-- **Marquee** — scrolling brand/feature strip
-- **Smart Features** and **Why Us** sections
-- **Plans** — subscription/plan options
-- **Old Testimonials** section
-- **Products** page — catalog browsing
-- **Cart sidebar** — slide-out cart
-- **Checkout page** — customer details + payment method selection (card/other)
-- **Order History** page
-- **About** and **Contact** pages
-- Reusable UI: `PremiumButton`, `Counter`, `StarRating`, `WaveDivider`, `Reveal` (scroll-reveal animation), `Map`, `ErrorBoundary`
+- **Cinematic landing page** — full-bleed video hero, scroll-driven parallax, and a marquee/testimonials/feature showcase
+- **Product catalog** — browse and filter electric toothbrush models
+- **Cart & checkout** — add-to-cart flow with a dedicated checkout page
+- **Order history** — view past orders
+- **Marketing pages** — About, Features, and Contact pages
+- **Light/dark theme support** via a theme context
+- **Polished UI kit** — built on [shadcn/ui](https://ui.shadcn.com/) and [Radix UI](https://www.radix-ui.com/) primitives, animated with [Framer Motion](https://www.framer.com/motion/)
+
+## Tech Stack
+
+**Frontend**
+- React 19 + TypeScript
+- [Vite](https://vitejs.dev/) for dev/build tooling
+- [Wouter](https://github.com/molefrog/wouter) for client-side routing
+- Tailwind CSS v4 + shadcn/ui + Radix UI primitives
+- Framer Motion for animation
+- TanStack Query, React Hook Form + Zod for data/forms
+
+**Backend**
+- Express (currently a minimal dev server that just boots Vite — see note below)
+- tRPC, Drizzle ORM, MySQL, and AWS S3 are included as dependencies for a fuller backend, but are not wired up in this build
+
+> **Note:** This export ships with a stub server (`server/_core/index.ts`) that only serves the Vite frontend. None of the routed pages currently call a backend API — cart and order history are handled client-side via React context. Deploying (e.g. to Vercel) just needs a static `vite build`.
 
 ## Project Structure
 
 ```
 client/
-  src/
-    pages/
-      Home.tsx, Products.tsx, Checkout.tsx, OrderHistory.tsx,
-      About.tsx, Contact.tsx, Features.tsx, NotFound.tsx
-    components/
-      Navbar.tsx, Footer.tsx, CartSidebar.tsx
-      PremiumButton.tsx, Counter.tsx, StarRating.tsx, WaveDivider.tsx, Reveal.tsx, Map.tsx
-      sections/
-        Hero.tsx        → Hero carousel
-        Marquee.tsx
-        SmartFeatures.tsx
-        WhyUs.tsx
-        Plans.tsx
-        OldTestimonials.tsx
-      ui/                → shadcn/ui components
-    hooks/, contexts/, lib/
-    const.ts
-    App.tsx, main.tsx, index.css
-  public/
-    images/, videos/
+├── src/
+│   ├── pages/           # Home, About, Features, Products, Contact, Checkout, OrderHistory
+│   ├── components/
+│   │   └── sections/     # Hero, Marquee, WhyUs, SmartFeatures, Testimonials
+│   ├── contexts/        # CartContext, OrderHistoryContext, ThemeContext
+│   ├── hooks/
+│   └── lib/
+└── public/               # Images, hero video
+
 server/
-  _core/index.ts          → Express + tRPC server entry
-shared/
-  const.ts                → Shared constants between client/server
+└── _core/index.ts        # Minimal dev server entry (boots Vite)
+
+shared/                    # Shared constants/types between client and server
 ```
 
-## Setup
+## Getting Started
 
-1. Install dependencies:
-   ```
-   npm install
-   ```
-2. Set up the database (Drizzle):
-   ```
-   npm run db:push
-   ```
-3. Run the dev server (client + server together):
-   ```
-   npm run dev
-   ```
+### Prerequisites
 
-## Other Scripts
+- Node.js 18+
+- npm (or pnpm — a `pnpm` lockfile config is present)
 
+### Installation
+
+```bash
+npm install
 ```
-npm run build     # Builds client (Vite) and bundles server (esbuild) into dist/
-npm start          # Runs the production build
-npm run check       # TypeScript type-check (no emit)
-npm test            # Run tests (Vitest)
-npm run format       # Format code with Prettier
+
+### Development
+
+```bash
+npm run dev
 ```
+
+This starts the dev server (defaults to port 3000, configurable via `PORT`).
+
+### Other scripts
+
+```bash
+npm run build     # vite build + bundle the server entry with esbuild
+npm start          # run the production build
+npm run check       # TypeScript type-check
+npm run format       # Prettier
+npm test            # Vitest
+```
+
+### Deployment
+
+A `vercel.json` is included, configured to run `vite build` and serve `dist/public`.
+
+## License
+
+MIT
