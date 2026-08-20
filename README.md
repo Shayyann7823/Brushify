@@ -82,8 +82,4 @@ npm test            # Vitest
 
 A `vercel.json` is included, configured to run `vite build` and serve `dist/public`.
 
-## License
-
-MIT
-
 > **NOTE:** This is a frontend-only prototype. There is no real backend, database, or payment processing — cart, checkout, and orders are handled client-side for demo purposes.
