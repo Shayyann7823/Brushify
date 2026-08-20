@@ -22,9 +22,7 @@ A premium marketing and e-commerce storefront for "Brushify" — a smart electri
 - Framer Motion for animation
 - TanStack Query, React Hook Form + Zod for data/forms
 
-**Backend**
-- Express (currently a minimal dev server that just boots Vite — see note below)
-- tRPC, Drizzle ORM, MySQL, and AWS S3 are included as dependencies for a fuller backend, but are not wired up in this build
+
 
 > **Note:** This export ships with a stub server (`server/_core/index.ts`) that only serves the Vite frontend. None of the routed pages currently call a backend API — cart and order history are handled client-side via React context. Deploying (e.g. to Vercel) just needs a static `vite build`.
 
